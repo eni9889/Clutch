@@ -145,23 +145,24 @@ NSMutableArray * get_ios_8_application_list()
                 NSString *bundleID = info[@"CFBundleIdentifier"];
                 NSString *container = [NSString stringWithFormat:@"%@%@/", applicationPath, uuid];
                 
+                NSString *appName = [[obj lastPathComponent] stringByReplacingOccurrencesOfString:@".app" withString:@""];
+
+                
                 NSDictionary* _appInfo =  @{
-                                                                        @"ApplicationContainer":container,
-                                                                        @"ApplicationDirectory":obj,
-                                                                        @"ApplicationDisplayName":displayName,
-                                                                        @"ApplicationName":[[obj lastPathComponent] stringByReplacingOccurrencesOfString:@".app" withString:@""],
-                                                                        @"RealUniqueID":uuid,
-                                                                        @"ApplicationBasename":obj,
-                                                                        @"ApplicationVersion":version,
-                                                                        @"ApplicationBundleID":bundleID,
-                                                                        //@"ApplicationSINF":SINF,
-                                                                        @"ApplicationExecutableName":executable,
-                                                                        @"MinimumOSVersion":minimumOSVersion,
+                                            @"ApplicationContainer": container ? container : @"",
+                                            @"ApplicationDirectory":obj ? obj : @"",
+                                            @"ApplicationDisplayName":displayName,
+                                            @"ApplicationName": appName ? appName : @"",
+                                            @"RealUniqueID": uuid ? uuid : @"",
+                                            @"ApplicationBasename": obj ? obj : @"",
+                                            @"ApplicationVersion":version ? version : @"1.0",
+                                            @"ApplicationBundleID":bundleID ? bundleID : @"",
+                                            @"ApplicationExecutableName":executable ? executable : @"",
+                                            @"MinimumOSVersion":minimumOSVersion ? minimumOSVersion : @"",
                                                                         @"PlugIn": @NO,
-                                                                        //@"PlugIns" : pluginList
                                                                         @"Framework": @NO,
-                                                                        //@"Frameworks": frameworkList
                                                                         };
+                
                 
                 NSMutableDictionary* appInfo = [[NSMutableDictionary alloc] initWithDictionary:_appInfo];
                 
